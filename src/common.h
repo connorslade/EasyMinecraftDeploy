@@ -5,6 +5,9 @@
 #include <sstream>
 #include <windows.h>
 #include <algorithm>
+#include <array>
+#include <memory>
+#include <vector>
 
 void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n") {
     std::cout << "\x1B[" << colorcode << "m" << text << "\033[0m" << stringEnd;
@@ -12,7 +15,69 @@ void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n") {
 
 void errorPrint(std::string text, int colorcode, int exitCode){
     debugPrint(text, colorcode);
+    std::cout << "\x1B[33m";
+    system("pause");
+    std::cout << "\033[0m";
     exit(exitCode);
+}
+
+std::string exec(const char* cmd) {
+    std::array<char, 128> buffer{};
+    std::string result;
+    std::unique_ptr<FILE, decltype(&_pclose)> pipe(_popen(cmd, "r"), _pclose);
+    if (!pipe) {
+        throw std::runtime_error("popen failed!");
+    }
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+    return result;
+}
+
+
+void tokenize(std::string const &str, const char delim,
+              std::vector<std::string> &out)
+{
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(delim, end)) != std::string::npos)
+    {
+        end = str.find(delim, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
+
+auto read_file(std::string path) -> std::string {
+    constexpr auto read_size = std::size_t{4096};
+    auto stream = std::ifstream{path.data()};
+    stream.exceptions(std::ios_base::badbit);
+
+    auto out = std::string{};
+    auto buf = std::string(read_size, '\0');
+    while (stream.read(& buf[0], read_size)) {
+        out.append(buf, 0, stream.gcount());
+    }
+    out.append(buf, 0, stream.gcount());
+    return out;
+}
+
+std::string getNewVersion(std::string baseUri, std::string name){
+    std::string fileName = ".easyMinecraftDeploy.tmp";
+    std::string command = "curl " + baseUri + " -f -A EasyMinecraftDeploy -o " + fileName + " >nul 2>&1";
+    int status = system(command.c_str());
+    if (status != 0)
+        errorPrint("[*] Error Downloading \x1B[34m" + name, 31, -1);
+    std::string manifest = read_file(fileName);
+    remove(fileName.c_str());
+    return manifest;
+}
+
+std::string getNewVersionAsString(std::string serverUri){
+    std::string s = getNewVersion(serverUri, "Version Manifest");
+    std::vector<std::string> out;
+    tokenize(s, '"', out);
+    return out[5];
 }
 
 bool saveFile(std::string filePath, std::string content) {

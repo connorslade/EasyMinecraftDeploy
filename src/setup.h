@@ -1,4 +1,35 @@
 namespace setup{
+
+    std::string getServerJar(std::string serverUri, std::string versionName = ""){
+        std::string serverJar, versionMeta;
+        std::string version = versionName;
+        std::vector<std::string> out;
+        std::string s = getNewVersion(serverUri, "Version Manifest");
+
+        tokenize(s, '"', out);
+        if (versionName == "")
+            version = out[5];
+
+        for(std::size_t i = 6, e = out.size(); i != e; ++i){
+            if (out[i] != version)
+                continue;
+            versionMeta = out[i + 8];
+            break;
+        }
+
+        s =  getNewVersion(versionMeta, "Version Meta");
+        tokenize(s, '"', out);
+
+        for(std::size_t i = 6, e = out.size(); i != e; ++i){
+            if (out[i] != "server")
+                continue;
+            serverJar = out[i + 10];
+            break;
+        }
+
+        return serverJar;
+    }
+
     void simple(std::string folder, std::string serverUri){
         std::string advancedConfig, tmp;
         debugPrint("[*] Creating folder \x1B[34m" + folder, 36);
