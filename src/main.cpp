@@ -16,10 +16,11 @@ int main(int argc, char **argv) {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleMode(hStdout, &l_mode);
     SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
-
     debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy!\n", 32);
 
-    if (!exists("Server")) {
+    if (argv[1] != nullptr)
+        folder = argv[1];
+    if (!exists(folder)) {
         debugPrint("[*] Creating folder \x1B[34m" + folder, 36);
         makeDir(folder.c_str());
         debugPrint("[*] Folder Created", 32);
@@ -56,6 +57,7 @@ int main(int argc, char **argv) {
 
     std::cout << "\x1B[33m";
     system("pause");
+    std::cout << "\033[0m";
 
     return 0;
 }
