@@ -10,6 +10,11 @@ void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n") {
     std::cout << "\x1B[" << colorcode << "m" << text << "\033[0m" << stringEnd;
 }
 
+void errorPrint(std::string text, int colorcode, int exitCode){
+    debugPrint(text, colorcode);
+    exit(exitCode);
+}
+
 bool saveFile(std::string filePath, std::string content) {
     std::fstream file;
     file.open(filePath, std::ios::out);

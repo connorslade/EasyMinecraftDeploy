@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     GetConsoleMode(hStdout, &l_mode);
     SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
 
-    debugPrint("[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy!\n", 32);
+    debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy!\n", 32);
 
     if (!exists("Server")) {
         debugPrint("[*] Creating folder \x1B[34m" + folder, 36);
@@ -26,25 +26,24 @@ int main(int argc, char **argv) {
         debugPrint("[*] Starting Download of Server.jar", 36);
         const std::string command = "curl " + serverUri + " -o " + folder + "/server.jar >nul 2>&1";
         int status = system(command.c_str());
-        if (status != 0) {
-            debugPrint("[*] Error Downloading \x1B[34mServer.jar", 31);
-            return -1;
-        }
+        if (status != 0)
+            errorPrint("[*] Error Downloading \x1B[34mServer.jar", 31, -1);
+
         debugPrint("[*] Download Complete", 32);
         debugPrint("[*] Accepting EULA", 36);
         saveFile(folder + "/eula.txt",
-                 "#Genarated by https://github.com/Basicprogrammer10/EasyMinecraftDeploy\neula=TRUE");
+                 "#Genarated with https://github.com/Basicprogrammer10/EasyMinecraftDeploy\neula=TRUE");
         debugPrint("[*] Complete\n", 32);
 
         debugPrint("[*] Enter Advanced Config Mode? [ y / N ] ", 33, "");
         std::getline(std::cin, advancedConfig);
-        if (stringToLower(advancedConfig) == "y"){
+        std::cout << std::endl;
+        if (stringToLower(advancedConfig) == "y") {
             std::string fullConfig = configSet::all();
-            saveFile(folder + "/server.properties", fullConfig);
-            return 0;
+            if (saveFile(folder + "/server.properties", fullConfig))
+                errorPrint("[*] Error Saving Config file :/", 31, -1);
         }
 
-        //debugPrint("[*] You can now edit the Server config file at '" + folder + "/server.properties'", 33);
         std::cout << "\n\x1B[33m";
         system("pause");
         return 0;

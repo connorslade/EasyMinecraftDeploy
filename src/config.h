@@ -1,18 +1,18 @@
 #include <iostream>
 #include <string>
 
-namespace configSet{
-    std::string getConfig(std::string configOption, std::string defult, std::string defultPrint){
+namespace configSet {
+    std::string getConfig(std::string configOption, std::string defult, std::string defultPrint) {
         std::string config;
-        debugPrint("    [*] " + configOption + " " + defultPrint + " ", 33, "");
+        debugPrint("\033[F\033[2K    [*] " + configOption + " " + defultPrint + " ", 33, "");
         std::getline(std::cin, config);
         if (config.empty())
             return configOption + "=" + defult + "\n";
         return configOption + "=" + config + "\n";
     }
 
-    std::string all(){
-        std::string fullConfig;
+    std::string all() {
+        std::string fullConfig = "#Genarated with https://github.com/Basicprogrammer10/EasyMinecraftDeploy\n";
         fullConfig += getConfig("enable-jmx-monitoring", "false", "[ true / FALSE ]");
         fullConfig += getConfig("rcon.port", "25575", "[ 25575 ]");
         fullConfig += getConfig("level-seed", "", "[  ]");
