@@ -1,50 +1,23 @@
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <sys/stat.h>
 #include <sstream>
 #include <windows.h>
 
-void debugPrint(std::string text, int colorcode) {
-    std::cout << "\x1B[" << colorcode << "m" << text << "\033[0m" << std::endl;
-}
+#include "common.h"
+#include "config.h"
 
-bool saveFile(std::string filePath, std::string content) {
-    std::fstream file;
-    file.open(filePath, std::ios::out);
-    if (!file) {
-        return false;
-    }
-    file << content;
-    file.close();
-    return true;
-}
-
-bool makeDir(const char *filePath) {
-    int check;
-    check = mkdir(filePath);
-    if (check)
-        return false;
-    return true;
-}
-
-inline bool exists(const std::string &name) {
-    struct stat buffer{};
-    return (stat(name.c_str(), &buffer) == 0);
-}
+#define debug true
 
 int main(int argc, char **argv) {
     std::string serverUri = "https://launcher.mojang.com/v1/objects/1b557e7b033b583cd9f66746b7a9ab1ec1673ced/server.jar";
     std::string folder = "Server";
+    std::string advancedConfig;
     DWORD l_mode;
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleMode(hStdout, &l_mode);
     SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
 
     debugPrint("[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy!\n", 32);
-
-    if (argv[1] != nullptr)
-        folder = argv[1];
 
     if (!exists("Server")) {
         debugPrint("[*] Creating folder \x1B[34m" + folder, 36);
@@ -61,14 +34,26 @@ int main(int argc, char **argv) {
         debugPrint("[*] Accepting EULA", 36);
         saveFile(folder + "/eula.txt",
                  "#Genarated by https://github.com/Basicprogrammer10/EasyMinecraftDeploy\neula=TRUE");
-        debugPrint("[*] Complete", 32);
+        debugPrint("[*] Complete\n", 32);
+
+        debugPrint("[*] Enter Advanced Config Mode? [ y / N ] ", 33, "");
+        std::getline(std::cin, advancedConfig);
+        if (stringToLower(advancedConfig) == "y"){
+            std::string fullConfig = configSet::all();
+            saveFile(folder + "/server.properties", fullConfig);
+            return 0;
+        }
+
+        //debugPrint("[*] You can now edit the Server config file at '" + folder + "/server.properties'", 33);
+        std::cout << "\n\x1B[33m";
+        system("pause");
         return 0;
     }
 
     debugPrint("[*] Starting Server", 32);
     std::cout << "\x1B[35m";
     const std::string runCommand = "cd " + folder + " && java -jar server.jar --nogui";
-    system(runCommand.c_str());
+    if (!debug) system(runCommand.c_str());
 
     std::cout << "\x1B[33m";
     system("pause");
