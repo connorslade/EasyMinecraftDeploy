@@ -43,3 +43,12 @@ std::string stringToLower(std::string data){
     std::transform(data.begin(), data.end(), data.begin(), [](unsigned char c){ return std::tolower(c); });
     return data;
 }
+
+std::string getConfig(std::string configOption, std::string defult, std::string defultPrint) {
+    std::string config;
+    debugPrint("\033[F\033[2K    [*] " + configOption + " " + defultPrint + " ", 33, "");
+    std::getline(std::cin, config);
+    if (config.empty())
+        return configOption + "=" + defult + "\n";
+    return configOption + "=" + config + "\n";
+}
