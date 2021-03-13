@@ -6,7 +6,7 @@
 #include "common.h"
 #include "config.h"
 
-#define debug true
+#define debug false
 
 int main(int argc, char **argv) {
     std::string serverUri = "https://launcher.mojang.com/v1/objects/1b557e7b033b583cd9f66746b7a9ab1ec1673ced/server.jar";
@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleMode(hStdout, &l_mode);
     SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
-    debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy!\n", 32);
+    debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy! \x1B[35mV0.1.1\n", 32);
 
     if (argv[1] != nullptr)
         folder = argv[1];
@@ -38,16 +38,20 @@ int main(int argc, char **argv) {
 
         debugPrint("[*] Enter Advanced Config Mode? [ y / N ] ", 33, "");
         std::getline(std::cin, advancedConfig);
-        std::cout << std::endl;
         if (stringToLower(advancedConfig) == "y") {
             std::string fullConfig = configSet::all();
             if (saveFile(folder + "/server.properties", fullConfig))
                 errorPrint("[*] Error Saving Config file :/", 31, -1);
         }
 
-        std::cout << "\n\x1B[33m";
-        system("pause");
-        return 0;
+        debugPrint("[*] Start Server? [ y / N ] ", 33, "");
+        std::string tmp;
+        std::getline(std::cin, tmp);
+        if (stringToLower(tmp) != "y") {
+            std::cout << "\n\x1B[33m";
+            system("pause");
+            return 0;
+        }
     }
 
     debugPrint("[*] Starting Server", 32);
