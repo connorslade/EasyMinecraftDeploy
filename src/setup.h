@@ -1,5 +1,4 @@
 namespace setup{
-
     std::string getServerJar(std::string serverUri, std::string versionName = ""){
         std::string serverJar, versionMeta;
         std::string version = versionName;
