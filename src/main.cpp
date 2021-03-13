@@ -6,8 +6,6 @@
 #include "config.h"
 #include "setup.h"
 
-#define debug false
-
 int main(int argc, char **argv) {
     std::string serverUri = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
     std::string folder = "Server";
@@ -43,8 +41,10 @@ int main(int argc, char **argv) {
 
     debugPrint("[*] Starting Server", 32);
     std::cout << "\x1B[35m";
-    const std::string runCommand = "cd " + folder + " && java -jar server.jar --nogui";
-    if (!debug) system(runCommand.c_str());
+    const std::string runCommand = "cd " + folder + " && java -jar server.jar --nogui 2> nul";
+    int result = system(runCommand.c_str());
+    if (result != 0) std::cout << std::endl;
+    if (result == 1) errorPrint("[*] Java not found :/ Make sure Java is installed", 31, -1);
 
     std::cout << "\x1B[33m";
     system("pause");
