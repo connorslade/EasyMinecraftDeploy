@@ -1,4 +1,5 @@
 # EasyMinecraftDeploy
+### [Youtube Video](https://www.youtube.com/watch?v=QkDG95H77I4)
 🕹 Easy way to start a Minecraft server! (On Windows)
 
 ![ScreenShot](https://i.imgur.com/kQvvb5Y.png)
@@ -14,5 +15,3 @@
 7. With the default config you can connect to your Minecraft server with `localhost` as the server URL!
 8. When you are done make sure to stop the server with the `stop` command to safely shut it down
 9. To start the server again you can just run the EXE again
-
-[Youtube Video]()
