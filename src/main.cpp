@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
     GetConsoleMode(hStdout, &l_mode);
     SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
-    debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy! \x1B[35mV0.2.0", 32);
+    debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy! \x1B[35mV0.2.1", 32);
     debugPrint("[*] Just press Enter to use the default option!\n", 34);
 
     if (argv[1] != nullptr)

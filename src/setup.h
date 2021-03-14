@@ -49,6 +49,7 @@ namespace setup{
         debugPrint("[*] Enter Advanced Config Mode? [ y / N ] ", 33, "");
         std::getline(std::cin, advancedConfig);
         if (stringToLower(advancedConfig) == "y") {
+            std::cout << std::endl;
             std::string fullConfig = configSet::all();
             if (saveFile(folder + "/server.properties", fullConfig))
                 errorPrint("[*] Error Saving Config file :/", 31, -1);
