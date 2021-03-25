@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <windows.h>
 
-#include "common.h"
-#include "config.h"
-#include "setup.h"
+#include "common.hpp"
+#include "config.hpp"
+#include "setup.hpp"
 
 int main(int argc, char **argv) {
     std::string serverUri = "https://launchermeta.mojang.com/mc/game/version_manifest.json";

@@ -3,10 +3,7 @@
 #include <fstream>
 #include <sys/stat.h>
 #include <sstream>
-#include <windows.h>
 #include <algorithm>
-#include <array>
-#include <memory>
 #include <vector>
 
 void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n") {
@@ -21,8 +18,7 @@ void errorPrint(std::string text, int colorcode, int exitCode){
     exit(exitCode);
 }
 
-void tokenize(std::string const &str, const char delim,
-              std::vector<std::string> &out)
+void tokenize(std::string const &str, const char delim, std::vector<std::string> &out)
 {
     size_t start;
     size_t end = 0;
@@ -85,7 +81,7 @@ bool makeDir(const char *filePath) {
     return true;
 }
 
-inline bool exists(const std::string &name) {
+bool exists(const std::string &name) {
     struct stat buffer{};
     return (stat(name.c_str(), &buffer) == 0);
 }

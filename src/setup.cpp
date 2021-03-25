@@ -1,3 +1,9 @@
+#include <string>
+#include <iostream>
+
+#include "common.hpp"
+#include "config.hpp"
+
 namespace setup{
     std::string getServerJar(std::string serverUri, std::string versionName = ""){
         std::string serverJar, versionMeta;
@@ -51,7 +57,7 @@ namespace setup{
         if (stringToLower(advancedConfig) == "y") {
             std::cout << std::endl;
             std::string fullConfig = configSet::all();
-            if (saveFile(folder + "/server.properties", fullConfig))
+            if (!saveFile(folder + "/server.properties", fullConfig))
                 errorPrint("[*] Error Saving Config file :/", 31, -1);
         }
     }

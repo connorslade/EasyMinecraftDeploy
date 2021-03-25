@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
         EasyMinecraftDeploy
         src/main.cpp
-        src/config.h
-        src/common.h
-        src/setup.h
+        src/config.hpp
+        src/common.hpp
+        src/setup.hpp
         res/res.rc
-)
+        src/common.cpp src/config.cpp src/setup.cpp)
 
 target_link_libraries(EasyMinecraftDeploy -static)

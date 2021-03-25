@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 
+#include "common.hpp"
+
 namespace configSet {
     std::string all() {
         std::string fullConfig = "#Genarated with https://github.com/Basicprogrammer10/EasyMinecraftDeploy\n";
