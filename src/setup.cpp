@@ -49,7 +49,7 @@ namespace setup{
         debugPrint("[*] Download Complete", 32);
         debugPrint("[*] Accepting EULA", 36);
         saveFile(folder + "/eula.txt",
-                 "#Genarated with https://github.com/Basicprogrammer10/EasyMinecraftDeploy\neula=TRUE");
+                 "#Genarated with https://github.com/Basicprogrammer10/EasyMinecraftDeploy :P\neula=TRUE");
         debugPrint("[*] Complete\n", 32);
 
         debugPrint("[*] Enter Advanced Config Mode? [ y / N ] ", 33, "");

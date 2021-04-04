@@ -3,6 +3,7 @@
 void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n");
 void errorPrint(std::string text, int colorcode, int exitCode);
 void tokenize(std::string const &str, const char delim, std::vector<std::string> &out);
+void waitForKeypress(std::string text, int colorCode);
 auto read_file(std::string path) -> std::string ;
 std::string getNewVersion(std::string baseUri, std::string name);
 std::string getNewVersionAsString(std::string serverUri);

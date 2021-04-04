@@ -5,6 +5,7 @@
 #include <sstream>
 #include <algorithm>
 #include <vector>
+#include <conio.h>
 
 void debugPrint(std::string text, int colorcode, std::string stringEnd = "\n") {
     std::cout << "\x1B[" << colorcode << "m" << text << "\033[0m" << stringEnd;
@@ -28,6 +29,18 @@ void tokenize(std::string const &str, const char delim, std::vector<std::string>
         end = str.find(delim, start);
         out.push_back(str.substr(start, end - start));
     }
+}
+
+void waitForKeypress(std::string text, int colorCode) {
+    char chk;
+    int j;
+
+    debugPrint(text, colorCode);
+    chk = getch();
+    j = chk;
+
+    for(int i=1;i<=256;i++)
+        if(i==j) break;
 }
 
 auto read_file(std::string path) -> std::string {

@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <conio.h>
 
 #include "console.hpp"
 #include "common.hpp"
@@ -37,7 +36,7 @@ int main(int argc, char **argv) {
         std::getline(std::cin, tmp);
         if (stringToLower(tmp) != "y") {
             std::cout << "\n\x1B[33m";
-            system("pause");
+            waitForKeypress("\n\nPress any key to Exit...", 33);
             return 0;
         }
     }
@@ -49,8 +48,6 @@ int main(int argc, char **argv) {
     if (result != 0) std::cout << std::endl;
     if (result == 1) errorPrint("[*] Java not found :/ Make sure Java is installed", 31, -1);
 
-    std::cout << "\x1B[33m";
-    system("pause");
-    std::cout << "\033[0m";
+    waitForKeypress("\n\nPress any key to Exit...", 33);
     return 0;
 }
