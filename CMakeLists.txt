@@ -10,6 +10,6 @@ add_executable(
         src/common.hpp
         src/setup.hpp
         res/res.rc
-        src/common.cpp src/config.cpp src/setup.cpp)
+        src/common.cpp src/config.cpp src/setup.cpp src/console.cpp src/console.hpp)
 
 target_link_libraries(EasyMinecraftDeploy -static)

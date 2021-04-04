@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <windows.h>
+#include <conio.h>
 
+#include "console.hpp"
 #include "common.hpp"
 #include "config.hpp"
 #include "setup.hpp"
@@ -11,10 +12,11 @@ int main(int argc, char **argv) {
     std::string serverUri = "https://launchermeta.mojang.com/mc/game/version_manifest.json";
     std::string folder = "Server";
     std::string tmp, jarVersion;
-    DWORD l_mode;
-    HANDLE hStdout = GetStdHandle(STD_OUTPUT_HANDLE);
-    GetConsoleMode(hStdout, &l_mode);
-    SetConsoleMode(hStdout, l_mode | 0x0004 | 0x0008);
+
+    enableAnsiCodes();
+    disableCloseButton();
+    setWindowName("Easy Minecraft Deploy");
+
     debugPrint("\x1B[1;32m[*] Welcome to Basicprogrammer10's Easy Minecraft Deploy! \x1B[35mV0.2.1", 32);
     debugPrint("[*] Just press Enter to use the default option!\n", 34);
 
