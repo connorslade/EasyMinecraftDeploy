@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
         std::getline(std::cin, tmp);
         if (stringToLower(tmp) != "y") {
             std::cout << "\n\x1B[33m";
-            waitForKeypress("\n\nPress any key to Exit...", 33);
+            waitForKeypress("\nPress any key to Exit...", 33);
             return 0;
         }
     }
@@ -48,6 +48,6 @@ int main(int argc, char **argv) {
     if (result != 0) std::cout << std::endl;
     if (result == 1) errorPrint("[*] Java not found :/ Make sure Java is installed", 31, -1);
 
-    waitForKeypress("\n\nPress any key to Exit...", 33);
+    waitForKeypress("\nPress any key to Exit...", 33);
     return 0;
 }

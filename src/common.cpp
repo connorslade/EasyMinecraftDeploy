@@ -35,7 +35,7 @@ void waitForKeypress(std::string text, int colorCode) {
     char chk;
     int j;
 
-    debugPrint(text, colorCode);
+    debugPrint(text, colorCode, "");
     chk = getch();
     j = chk;
 
